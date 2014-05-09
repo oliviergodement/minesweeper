@@ -1,0 +1,78 @@
+/* CSS classes you can use on your table td to display the relevant tile */
+
+body {
+  background-color: #20457C;
+  color: #ECDFBD;
+}
+
+.game {
+  float: none;
+  margin: 0 auto;
+}
+
+#submit-button {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+td.opened {
+  background: url('img/opened.svg');
+}
+td.question {
+  background: url('img/question.svg');
+}
+td.mine {
+  background: url('img/mine.png');
+}
+
+td.mine-neighbour-1 {
+  background: url('img/1.svg');
+}
+td.mine-neighbour-2 {
+  background: url('img/2.svg');
+}
+td.mine-neighbour-3 {
+  background: url('img/3.svg');
+}
+td.mine-neighbour-4 {
+  background: url('img/4.svg');
+}
+td.mine-neighbour-5 {
+  background: url('img/5.svg');
+}
+td.mine-neighbour-6 {
+  background: url('img/6.svg');
+}
+td.mine-neighbour-7 {
+  background: url('img/7.svg');
+}
+td.mine-neighbour-8 {
+  background: url('img/8.svg');
+}
+
+td.unopened {
+  background: url('img/unopened.svg');
+  cursor: pointer;
+}
+
+td.flagged {
+  background: url('img/flag.svg');
+}
+
+/* Positionning the Minesweep table and make sure the cells are square */
+table#minesweeper {
+  margin: auto;
+  margin-top: 3em;
+  border: 1px solid #999;
+  border-collapse: collapse;
+  background-color: #B9B9B9;
+}
+table#minesweeper td {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+}

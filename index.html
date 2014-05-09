@@ -1,1 +1,63 @@
-hello world
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minesweeper</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="minesweeper.css">
+</head>
+
+<body>
+    <div class="container">
+    <row>
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h1>A Good Old Minesweeper Game</h1>
+        <form class="form-horizontal" id="startform" role="form">
+            <h2>Select your mode:</h2>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="beginner-mode" value="option1" checked>
+                Beginner: 9 × 9 field with 10 mines
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="intermediate-mode" value="option2">
+                Intermediate: 16 × 16 field with 40 mines
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="expert-mode" value="option3">
+                Hardcore: 30 × 16 field with 99 mines
+              </label>
+            </div>
+            <div class="form-group" id="submit-button">
+              <button type="submit" class="btn btn-success">Start game</button>
+            </div>
+        </form>
+      </div>
+      <div class="col-md-3"></div>
+    </row>
+      <row>
+      <div id="gamestatus">
+      </div>
+    </row>
+    <row>
+      <div class="col-md-12" class="game">
+        <table id="minesweeper">
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </row>
+
+  </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="minesweeper.js"></script>
+</body>
+
+</html>
