@@ -3,20 +3,40 @@
 body {
   background-color: #20457C;
   color: #ECDFBD;
+  font-family: 'Droid Serif';
+  font-size: 15px;
 }
 
-.game {
+#game {
   float: none;
   margin: 0 auto;
 }
 
 #submit-button {
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 30px;
+  margin-left: 24%;
+}
+
+form {
+  margin-top: 50px;
+
+}
+
+#form-content {
+  margin-left: 23%;
+}
+
+h1 {
+  font-size: 2.3em;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid darkgray;
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1.6em;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 td.opened {
@@ -71,8 +91,13 @@ table#minesweeper {
   border-collapse: collapse;
   background-color: #B9B9B9;
 }
+
 table#minesweeper td {
   width: 24px;
   height: 24px;
   background-size: cover;
+}
+
+#restart {
+  margin-top: 30px;
 }

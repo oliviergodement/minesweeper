@@ -1,47 +1,48 @@
 $(document).ready(function(){
 
-  $('.game').hide()
-  var ROWS, COLUMNS, MINES;
+  $('#game').hide();
+  // timer(0,0);
 
   $('#startform').submit(function(event){
     event.preventDefault();
-    if( $('#beginner-mode').is(':checked') ) {
-      ROWS = 9;
-      COLUMNS = 9;
-      MINES = 10;
-    }
-    else if( $('#intermediate-mode').is(':checked') ) {
-      ROWS = 16;
-      COLUMNS = 16;
-      MINES = 40;
-    }
-    else if( $('#expert-mode').is(':checked') ) {
-      ROWS = 16;
-      COLUMNS = 30;
-      MINES = 99;
-    }
-    generateGrid(ROWS, COLUMNS);
-    positionMines(MINES);
+
+    // prepare the game
+    setField();
     populateGrid();
     hideTiles();
-    $('#startform').hide();
-    $('.game').show()
 
-    $('td').click(function(){
-      if ( !$(this).hasClass('flagged') ) {
-        $(this).hasClass('mine') ? gameOver() : openSafeTile($(this));
-      };
-    });
-
-    $('td').bind('contextmenu', function(e){
-      e.preventDefault();
-      toggleFlagTile($(this));
-    });
+    // player interaction
+    startGame();
+    restartGame();
+    playerLeftClick();
+    playerRightClick();
   });
 });
 
+function setField(){
 
-function generateGrid(rows, columns){
+  var ROWS, COLUMNS, MINES;
+
+  if( $('#beginner-mode').is(':checked') ) {
+    ROWS = 9;
+    COLUMNS = 9;
+    MINES = 10;
+  }
+  else if( $('#intermediate-mode').is(':checked') ) {
+    ROWS = 16;
+    COLUMNS = 16;
+    MINES = 40;
+  }
+  else if( $('#expert-mode').is(':checked') ) {
+    ROWS = 16;
+    COLUMNS = 30;
+    MINES = 99;
+  }
+  generateGrid(ROWS, COLUMNS);
+  positionMines(MINES);
+};
+
+function generateGrid(rows, columns) {
   for (var y = 0 ; y < rows ; y++) {
     $('tbody').append($("<tr id='row" + y + "'>"));
     for (var x = 0 ; x < columns ; x++) {
@@ -50,7 +51,7 @@ function generateGrid(rows, columns){
   };
 };
 
-var positionMines = function(mines){
+function positionMines(mines) {
   var counter = 0;
   while (counter < mines){
     $('td').each(function(){
@@ -62,13 +63,7 @@ var positionMines = function(mines){
   };
 };
 
-function hideTiles() {
-  $('td').each(function() {
-    $(this).addClass('unopened');
-  })
-};
-
-var populateGrid = function(){
+function populateGrid() {
   $('td').each(function(){
     if (!$(this).hasClass('mine')) {
       var counter = minedNeighboursCount($(this));
@@ -84,7 +79,7 @@ var populateGrid = function(){
   });
 };
 
-var minedNeighboursCount = function(tile){
+function minedNeighboursCount(tile) {
   var counter = 0;
 
   getSurroundingTiles(tile).forEach(function(nextTile){
@@ -95,29 +90,7 @@ var minedNeighboursCount = function(tile){
   return counter;
 };
 
-var revealTiles = function(){
-  $('td').each(function(){
-    $(this).removeClass('unopened');
-  });
-};
-
-var gameOver = function(){
-  revealTiles();
-};
-
-var openSafeTile = function(tile){
-  if (tile.hasClass('unopened')) {
-    tile.removeClass('unopened');
-    if( tile.hasClass('opened') ) {
-      getSurroundingTiles(tile).forEach(function(nextTile){
-        openSafeTile(nextTile);
-      });
-    };
-  };
-};
-
-
-var getSurroundingTiles = function(tile){
+function getSurroundingTiles(tile) {
   // x and y of the tile
   var positionX = tile.attr("class"); // class id
   var currentRow = tile.parent(); // object
@@ -143,8 +116,71 @@ var getSurroundingTiles = function(tile){
   return surroundingTiles;
 };
 
-var toggleFlagTile = function(tile){
+function hideTiles() {
+  $('td').each(function() {
+    $(this).addClass('unopened');
+  })
+};
+
+
+function revealTiles() {
+  $('td').each(function(){
+    $(this).removeClass('unopened');
+  });
+};
+
+function gameOver() {
+  revealTiles();
+};
+
+function openSafeTile(tile) {
+  if (tile.hasClass('unopened')) {
+    tile.removeClass('unopened');
+    if( tile.hasClass('opened') ) {
+      getSurroundingTiles(tile).forEach(function(nextTile){
+        openSafeTile(nextTile);
+      });
+    };
+  };
+};
+
+function toggleFlagTile(tile) {
   if (tile.hasClass('unopened')) {
     tile.hasClass('flagged') ? tile.removeClass('flagged') : tile.addClass('flagged');
   };
 };
+
+function startGame(){
+  $('#startform').hide();
+  $('#game').show();
+};
+
+function restartGame(rows, columns, mines){
+  $('#restart').click(function(){
+    $('#game').hide();
+    $('td').remove();
+    $('#submit-button').trigger('click');
+  });
+};
+
+function playerLeftClick() {
+  $('td').click(function(){
+    if ( !$(this).hasClass('flagged') ) {
+      $(this).hasClass('mine') ? gameOver() : openSafeTile($(this));
+    };
+  });
+};
+
+function playerRightClick() {
+  $('td').bind('contextmenu', function(e){
+    e.preventDefault();
+    toggleFlagTile($(this));
+  });
+};
+
+// function timer(m, s) {
+//   var clock = m + ':' + s;
+//   $('#timer').text(clock);
+//   setInterval(function(){timer(m, s + 1)}, 1000);
+//   // else { setInterval(function(){ timer(m+1, 0)}, 1000); }
+// };
