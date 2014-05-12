@@ -6,6 +6,8 @@ $(document).ready(function(){
   $('#startform').submit(function(event){
     event.preventDefault();
 
+    var ROWS, COLUMNS, MINES;
+
     // prepare the game
     setField();
     populateGrid();
@@ -20,8 +22,6 @@ $(document).ready(function(){
 });
 
 function setField(){
-
-  var ROWS, COLUMNS, MINES;
 
   if( $('#beginner-mode').is(':checked') ) {
     ROWS = 9;
@@ -56,8 +56,10 @@ function positionMines(mines) {
   while (counter < mines){
     $('td').each(function(){
       if ( (Math.floor((Math.random()*10)+1) == 1) && counter < mines){
-        $(this).addClass('mine');
-        counter++;
+        if (!$(this).hasClass('mine')) {
+          $(this).addClass('mine');
+          counter++;
+        };
       };
     });
   };
@@ -159,6 +161,7 @@ function restartGame(rows, columns, mines){
   $('#restart').click(function(){
     $('#game').hide();
     $('td').remove();
+    $('body').removeClass('success');
     $('#submit-button').trigger('click');
   });
 };
@@ -167,6 +170,7 @@ function playerLeftClick() {
   $('td').click(function(){
     if ( !$(this).hasClass('flagged') ) {
       $(this).hasClass('mine') ? gameOver() : openSafeTile($(this));
+      hasWon();
     };
   });
 };
@@ -177,6 +181,12 @@ function playerRightClick() {
     toggleFlagTile($(this));
   });
 };
+
+function hasWon() {
+  if ( $('td.unopened').length == MINES ) {
+    $('body').addClass('success');
+  };
+}
 
 // function timer(m, s) {
 //   var clock = m + ':' + s;

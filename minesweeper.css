@@ -1,5 +1,6 @@
 /* CSS classes you can use on your table td to display the relevant tile */
 
+
 body {
   background-color: #20457C;
   color: #ECDFBD;
@@ -100,4 +101,8 @@ table#minesweeper td {
 
 #restart {
   margin-top: 30px;
+}
+
+.success {
+  background-image: url("img/success.jpg");
 }
