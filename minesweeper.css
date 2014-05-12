@@ -24,7 +24,7 @@ form {
 }
 
 #form-content {
-  margin-left: 23%;
+  margin-left: 18%;
 }
 
 h1 {
@@ -105,4 +105,10 @@ table#minesweeper td {
 
 .success {
   background-image: url("img/success.jpg");
+}
+
+.footer {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  text-align: center;
 }
