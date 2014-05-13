@@ -117,10 +117,3 @@ table#minesweeper td {
   margin-bottom: 10px;
   text-align: center;
 }
-
-.status {
-  margin-top: 50px;
-  width: 20%;
-  height: 40%;
-  background-color: yellow;
-}

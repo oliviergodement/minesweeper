@@ -200,12 +200,10 @@ function updateScore() {
    $('#status').text(function(){
     if (attempts == 0) {
       return "Score: " + victories;
-    }
-    else if (attempts == 1) {
-      return "Score: " + victories + " (" + attempts + " attempt )";
-    }
-    else {
-      return "Score: " + victories + " (" + attempts + " attempts )";
+    } else if (attempts == 1) {
+      return "Score: " + victories + " (" + attempts + " attempt)";
+    } else {
+      return "Score: " + victories + " (" + attempts + " attempts)";
     }
   });
 }
