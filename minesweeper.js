@@ -3,6 +3,12 @@ $(document).ready(function(){
   $('#game').hide();
   // timer(0,0);
 
+  //preparing the game
+  victories = 0;
+  attempts = 0;
+  updateScore();
+  restartGame();
+
   $('#startform').submit(function(event){
     event.preventDefault();
 
@@ -12,17 +18,15 @@ $(document).ready(function(){
     setField();
     populateGrid();
     hideTiles();
+    startGame();
 
     // player interaction
-    startGame();
-    restartGame();
     playerLeftClick();
     playerRightClick();
   });
 });
 
 function setField(){
-
   if( $('#beginner-mode').is(':checked') ) {
     ROWS = 9;
     COLUMNS = 9;
@@ -73,7 +77,7 @@ function populateGrid() {
       if (counter == 0) {
         $(this).addClass('opened');
       } else if (counter > 8) {
-        alert('BUG !');
+        console.log('bug: something is wrong with the mined neighbours count');
       } else {
         $(this).addClass('mine-neighbour-' + counter);
       }
@@ -163,6 +167,8 @@ function restartGame(rows, columns, mines){
     $('td').remove();
     $('body').removeClass('success');
     $('#submit-button').trigger('click');
+    attempts++;
+    updateScore();
   });
 };
 
@@ -185,7 +191,23 @@ function playerRightClick() {
 function hasWon() {
   if ( $('td.unopened').length == MINES ) {
     $('body').addClass('success');
+    victories++;
+    updateScore();
   };
+}
+
+function updateScore() {
+   $('#status').text(function(){
+    if (attempts == 0) {
+      return "Score: " + victories;
+    }
+    else if (attempts == 1) {
+      return "Score: " + victories + " (" + attempts + " attempt )";
+    }
+    else {
+      return "Score: " + victories + " (" + attempts + " attempts )";
+    }
+  });
 }
 
 // function timer(m, s) {
